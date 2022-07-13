@@ -100,10 +100,11 @@ class Graph:
 												# isTerminalConnect[terminal]=True for all sources and destinations
 
 		# Step 2: Calculate the length 
-		while (size(not_connected_destinations)>0 or size(not_connected_sources)>0) and  size(node_set_to_ranking_node)<self.V-size(self.terminals):
-			#if there are terminals not to be connected yet or all the nodes are not pooled then we continue to pool
+		while (size(not_connected_destinations)>0 or size(not_connected_sources)>0):
+			#If there are terminals not to be connected yet or all the nodes are not pooled then we continue to pool
 
 			for u, v, w in self.graph:
+				print('(u',u,',v',v,',w',w,')')
 
 				if dist[u] != 1000000 and dist[u] + 1 + w < dist[v] and (not v in node_set_to_ranking_node[u]):
 					# not v in node_set_to_ranking_node[u] means we don't pool a node more than once
@@ -134,6 +135,7 @@ class Graph:
 		
 		# Calculate the score by our method: add all dists to terminals together
 		score=0
+
 		for source in self.sources:
 			score+=dist[source]
 		for destination in self.destinations:
